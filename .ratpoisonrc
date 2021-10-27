@@ -1,0 +1,149 @@
+#                 PROJECT NAME: RatpoisonWM   
+#                      
+# Config file:        ~/.ratpoisonrc
+# Started On:         Mon  9 Aug 18:52:27 CDT 2021
+# Last Change:        Wed  8 Sep 18:52:27 CDT 2021
+# Author E-Mail:      jake@jpedmedia.com
+# Author GitHub:      https://github.com/jdpedersen1
+# Author Gitlab:      https://gitlab.com/jped
+#------------------------------------------------------------------------------
+
+
+# AUTOSTART #
+#--------------------------------------------#
+#
+#Wallpaper
+exec xwallpaper --zoom ~/Pictures/wallpaper/j@l.png 
+# nitrogen --restore
+
+#System
+exec /usr/bin/rpws init 9 -k                 
+exec picom --experimental-backend
+#exec conky -c ~/.config/conky/herbs.conkyrc
+
+#Mouse
+exec ratpoison -c "banish"
+#exec /usr/share/ratpoison/sloppy
+
+#Bar
+exec "./bar.sh" | dzen2 -fn roboto:style=italic -fg "#076678" 
+#exec echo "jakes" | dzen2 -p
+#exec dzconky
+
+
+# SETTINGS #
+#--------------------------------#
+#
+#Dialog box
+rudeness 13
+warp off
+set winname title
+set wingravity center
+set transgravity center
+set border 3
+set barborder 3
+set barpadding 1 1
+set padding 0 22 0 0
+set bargravity center
+set font "Roboto:size=16" 
+set bgcolor #000000
+set fgcolor #477d8f
+set fwcolor #477d8f
+set bwcolor #000000
+
+# ESCAPE KEY (replace key chord C-t with alt) #
+#---------------------------------------------#
+#       
+#Escape key
+escape Alt_L
+#---------------------------------------------#
+
+
+
+# KEYBINDS (after escape keypress) #
+#----------------------------------#
+# Applications                     #
+bind M-B exec brave
+bind M-A exec firefox
+bind M-R exec rofi -show drun
+bind M-D exec dmenu_run
+bind S-M-Return exec st
+bind M-E exec ./.config/.dmenu/edit_configs.sh
+bind M-I exec ./.config/.dmenu/browsers.sh
+bind M-F exec ./.config/.dmenu/fm.sh
+#-----------------------------------------------#
+
+#---------------------#
+# WINDOW MANIPULATION #
+#---------------------#
+
+# Window splits/resize
+bind S vsplit
+bind r hsplit
+bind R resize
+
+# Focus
+bind <UP> focusup
+bind <DOWN> focusdown
+bind <LEFT> focusleft
+bind <RIGHT> focusright
+
+# Swap windows
+bind C-Right exchangeright
+bind C-Left exchangeleft
+bind C-Up exchangeup
+bind C-Down exchangedown
+bind C-S-Right rpwsmn
+bind C-S-Left rpwsmp
+
+# Send window to workspace 1-9
+bind M-1 rpwsm1
+bind M-2 rpwsm2
+bind M-3 rpwsm3
+bind M-4 rpwsm4
+bind M-5 rpwsm5
+bind M-6 rpwsm6
+bind M-7 rpwsm7
+bind M-8 rpwsm8
+bind M-9 rpwsm9
+bind M-Q kill
+
+# System info
+bind b exec notify-send -t 1500 $(battery) 
+bind s-F1 help
+# Multimedia
+bind XF86MonBrightnessUp exec lux -a 10%
+bind XF86MonBrightnessDown exec lux -s 10%
+bind XF86AudioRaiseVolume exec volchange.sh volup
+bind XF86AudioLowerVolume exec volchange.sh voldown
+bind XF86AudioMute exec volchange.sh volmute
+bind XF86AudioPlay exec playerctl play-pause
+bind XF86AudioNext exec playerctl next
+bind XF86AudioPrev exec playerctl previous
+bind C-S exec playerctl stop
+
+bind M-T tmpwm dwm
+bind M-C-r restart
+bind M-C quit
+bind M-W select  
+#----------------------------------#
+
+
+
+# RPWS (ratpoison workspaces) #
+#-----------------------------#
+#                             #  
+bind 1 exec rpws 1
+bind 2 exec rpws 2
+bind 3 exec rpws 3
+bind 4 exec rpws 4
+bind 5 exec rpws 5
+bind 6 exec rpws 6
+bind 7 exec rpws 7
+bind 8 exec rpws 8
+bind 9 exec rpws 9
+bind S-Right exec rpws next
+bind S-Left exec rpws prev
+#-----------------------------#
+
+
