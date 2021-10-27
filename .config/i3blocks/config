@@ -1,0 +1,138 @@
+# i3blocks configuration file
+#
+# The i3blocks man page describes the usage of the binary,
+# and its website describes the configuration:
+#
+#     https://vivien.github.io/i3blocks
+
+
+# Global properties
+separator=true
+separator_block_width=4
+
+
+#[greetings]
+#color=#f5af19
+#command=echo "Hello, $USER!"
+#interval=once
+
+[window title]
+command=xdotool getactivewindow getwindowname
+interval=repeat
+color=#014a7d
+
+[gap]
+full_text=  
+
+[kernel]
+command=exec uname -r
+interval=3600
+#color=#6c71c4
+color=#c43749
+
+[gap]
+full_text=  
+
+[documentation]
+full_text=    
+website=https://vivien.github.io/i3blocks
+command=xdg-open "$website"
+color=#222222
+background=#556db7
+
+[gap]
+full_text=  
+
+[wifi1]
+full_text=    
+command="nm-connection-editor"
+background=#f12711
+color=#222222
+
+[wifi]
+command=web
+#color=#73beec
+color=#222222
+background=#b8b8b8
+interval=5
+
+[gap]
+full_text=  
+
+[updates1]
+full_text=    
+command="st -e update2"
+color=#222222
+background=#73beec
+
+[updates]
+command= pacupdate
+interval=3600
+#color=#f12711
+color=#222222
+background=#b8b8b8
+
+[gap]
+full_text=  
+
+[battery1]
+full_text=    
+command= "xfce4-power-manager-settings"
+background=#c43749
+color=#222222
+
+[battery]
+command=cat /sys/class/power_supply/BAT0/capacity
+#color=#4e7bc4
+color=#222222
+background=#b8b8b8
+interval=300
+
+[gap]
+full_text=  
+
+[volume1]
+full_text=    
+command="pavucontrol"
+background=#2e60b3
+color=#222222
+
+[volume]
+command=vol
+#color=#970618
+color=#222222
+background=#b8b8b8
+interval=1
+
+[gap]
+full_text=  
+
+[weather1]
+full_text=    
+color=#222222
+background=#970618
+
+[weather]
+command= exec weather
+interval=3600
+color=#222222
+background=#b8b8b8
+
+[gap]
+full_text=  
+
+[time1]
+full_text=    
+command= "thunderbird"
+background=#014a7d
+color=#222222
+
+[time]
+command= date  '+%d-%b-%Y [%I:%M] '
+interval=60
+#color=#014a7d
+color=#222222
+background=#b8b8b8
+
+[gap]
+full_text= 

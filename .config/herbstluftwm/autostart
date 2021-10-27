@@ -1,0 +1,217 @@
+#!/usr/bin/env bash
+#------------------------------------------------------------------------------
+#                 PROJECT NAME: HERBSTLUFTWM   
+#                      
+# Config file:        ~/.config/herbstluftwm/autostart
+# Started On:         Thu  9 Sep 13:23:04 CDT 2021#
+# Last Change:        Thu  9 Sep 13:23:04 CDT 2021#
+# Author E-Mail:      jake@jpedmedia.com
+# Author GitHub:      https://github.com/jdpedersen1
+# Author Gitlab:      https://gitlab.com/jped
+#------------------------------------------------------------------------------#
+#
+hc() {
+    herbstclient "$@"
+}
+
+hc emit_hook reload
+
+# AUTOSTART #
+#-----------#
+picom --experimental-backend &
+lxsession &
+#nitrogen --random --set-scaled &
+xwallpaper --zoom ~/Pictures/wallpaper/jl.png
+#conky -c /home/jake/.config/conky/herbs.conkyrc &
+
+# REMOVE ALL EXISTING KEYBINDINGS #
+#---------------------------------#
+hc keyunbind --all
+
+# KEYBINDINGS #
+#-------------#
+Mod=Mod1    # Use alt as the main modifier
+#Mod=Mod4   # Use the super key as the main modifier
+
+# System controls #
+#-----------------#
+hc keybind $Mod-Shift-c spawn arcolinux-logout
+hc keybind $Mod-Control-r reload
+hc keybind $Mod-Shift-q close
+hc keybind $Mod-Shift-Return spawn "${TERMINAL:-alacritty}" # use your $TERMINAL with xterm as fallback
+hc keybind $Mod-Control-c spawn $HOME/scripts/herbstchanger
+ 
+# multimedia #
+#------------#
+hc keybind XF86MonBrightnessUp spawn lux -a 10%
+hc keybind XF86MonBrightnessDown spawn lux -s 10%
+hc keybind XF86AudioRaiseVolume spawn pactl set-sink-volume 0 +5%
+hc keybind XF86AudioLowerVolume spawn pactl set-sink-volume 0 -5%
+hc keybind XF86AudioMute spawn pactl set-sink-mute @DEFAULT_SINK@ toggle
+hc keybind XF86AudioPlay spawn playerctl play-pause
+hc keybind XF86AudioNext spawn playerctl next
+hc keybind XF86AudioPrev spawn playerctl previous
+hc keybind $Mod-Control-s spawn playerctl stop
+
+# programs #
+# #--------#
+hc keybind $Mod-Shift-w spawn bgd
+hc keybind $Mod-Control-t spawn alacritty -e "$HOME/scripts/changer"
+
+# run launchers #
+#---------------#
+hc keybind $Mod-Shift-d spawn dmenu_run -p Execute: -fn Roboto -c -g 1 -l 10 -nb '#222222' -sb '#000000' -sf '#6f7a76' -nf '#076678'
+hc keybind $Mod-Shift-r spawn rofi -show drun
+hc keybind $Mod-Control-e spawn rofi -show emoji
+hc keybind $Mod-Shift-e spawn ~/.config/.dmenu/edit_configs.sh
+hc keybind $Mod-Shift-i spawn ~/.config/.dmenu/browsers.sh
+
+# browsers #
+#----------#
+hc keybind $Mod-Shift-l spawn librewolf
+hc keybind $Mod-Shift-b spawn brave
+hc keybind $Mod-Shift-a spawn firefox
+hc keybind $Mod-q spawn qutebrowser
+hc keybind $Mod-Shift-s spawn surf www.suckless.org
+hc keybind $Mod-Shift-j spawn python3 /home/jake/.local/bin/browser.py
+
+# focusing client #
+#-----------------#s
+hc keybind $Mod-Left  focus left
+hc keybind $Mod-Down  focus down
+hc keybind $Mod-Up    focus up
+hc keybind $Mod-Right focus right
+
+# moving clients in tiling and floating mode #
+#--------------------------------------------#
+hc keybind $Mod-Shift-Left  shift left
+hc keybind $Mod-Shift-Down  shift down
+hc keybind $Mod-Shift-Up    shift up
+hc keybind $Mod-Shift-Right shift right
+
+# splitting frames #
+#------------------#
+hc keybind $Mod-u       split   bottom  0.6
+hc keybind $Mod-o       split   right   0.6
+
+# let the current frame explode into subframes #
+#----------------------------------------------#
+hc keybind $Mod-Control-space split explode
+
+# resizing frames and floating clients #
+#--------------------------------------#
+resizestep=0.02
+hc keybind $Mod-Control-Left    resize left +$resizestep
+hc keybind $Mod-Control-Down    resize down +$resizestep
+hc keybind $Mod-Control-Up      resize up +$resizestep
+hc keybind $Mod-Control-Right   resize right +$resizestep
+
+# tags #
+#------#
+tag_names=( {1..9} )
+tag_keys=( {1..9} 0 )
+
+hc rename default "${tag_names[0]}" || true
+for i in "${!tag_names[@]}" ; do
+    hc add "${tag_names[$i]}"
+    hc set_layout horizontal
+    hc set default_frame_layout 1
+    key="${tag_keys[$i]}"
+    if ! [ -z "$key" ] ; then
+        hc keybind "$Mod-$key" use_index "$i"
+        hc keybind "$Mod-Shift-$key" move_index "$i"
+    fi
+done
+
+# layouting #
+#-----------#
+hc keybind $Mod-r remove
+#hc keybind $Mod-s floating toggle
+hc keybind $Mod-f fullscreen toggle
+hc keybind $Mod-Shift-f set_attr clients.focus.floating toggle
+hc keybind $Mod-p pseudotile toggle
+# The following cycles through the available layouts within a frame, but skips
+# layouts, if the layout change wouldn't affect the actual window positions.
+# I.e. if there are two windows within a frame, the grid layout is skipped.
+hc keybind $Mod-space                                                           \
+            or , and . compare tags.focus.curframe_wcount = 2                   \
+                     . cycle_layout +1 vertical horizontal max vertical grid    \
+               , cycle_layout +1
+
+# focus #
+#-------#
+hc keybind $Mod-BackSpace   cycle_monitor
+hc keybind $Mod-Tab         cycle_all +1
+hc keybind $Mod-Shift-Tab   cycle_all -1
+hc keybind $Mod-c cycle
+hc keybind $Mod-i jumpto urgent
+
+# MOUSE #
+#-------#
+hc mouseunbind --all
+hc mousebind $Mod-Button1 move
+hc mousebind $Mod-Button2 zoom
+hc mousebind $Mod-Button3 resize
+
+# THEME #
+#-------#
+hc attr theme.tiling.reset 1
+hc attr theme.floating.reset 1
+hc set frame_border_active_color '#222222'
+hc set frame_border_normal_color '#101010'
+hc set frame_bg_normal_color '#565656'
+hc set frame_bg_active_color '#345F0C'
+hc set frame_border_width 1
+hc set always_show_frame 0
+hc set frame_bg_transparent 1
+hc set frame_transparent_width 0
+hc set frame_gap 0
+
+hc attr theme.active.color '#9fbc00'
+hc attr theme.normal.color '#454545'
+hc attr theme.urgent.color orange
+hc attr theme.inner_width 1
+hc attr theme.inner_color black
+hc attr theme.border_width 0
+hc attr theme.floating.border_width 0
+hc attr theme.floating.outer_width 1
+hc attr theme.floating.outer_color black
+hc attr theme.active.inner_color '#3E4A00'
+hc attr theme.active.outer_color '#3E4A00'
+hc attr theme.background_color '#141414'
+
+hc set window_gap 10
+hc set frame_padding 0
+hc set smart_window_surroundings off
+hc set smart_frame_surroundings off
+hc set mouse_recenter_gap 0
+
+# RULES ##
+#-------#
+hc unrule -F
+#hc rule class=XTerm tag=3 # move all xterms to tag 3
+hc rule focus=on # normally focus new clients
+hc rule floatplacement=smart
+#hc rule focus=off # normally do not focus new clients
+# give focus to most common terminals
+#hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
+hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
+
+hc set tree_style '╾│ ├└╼─┐'
+
+# UNLOCK #
+#--------#
+hc unlock
+
+
+# FIND THE PANEL #
+#----------------#
+panel=~/.config/herbstluftwm/panel.sh
+[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
+for monitor in $(hc list_monitors | cut -d: -f1) ; do
+    # start it on each monitor
+    "$panel" "$monitor" &
+done
+hc split horizontal 0.6; hc remove
