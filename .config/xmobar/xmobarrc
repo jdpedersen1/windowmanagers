@@ -1,0 +1,51 @@
+-- reference for options http://projects.haskell.org/xmobar/
+-- install xmobar with these flags: --flags="with_alsa" --flags="with_mpd" --flags="with_xft"  OR --flags="all_extensions"
+-- you can find weather location codes here: http://weather.noaa.gov/index.html
+-- my workspaces are clickable, as are my icons for volume(pavucontrol), battery(xfce4 power manager), calendar(osmo), pacman(pamac), and tux(tlpui), also the haskell icon(emacs)
+
+
+Config { font    = "xft:Roboto:style=Bold Italic:pixelsize=16:antialias=true:hinting=true,FontAwesome:pixelsize=16"
+       --, bgColor = "#282c34"
+       --, bgColor = "#222222"
+       --, bgColor = "#282A36"
+       --, bgColor = "#292D3E"
+       --, bgColor = "#000000"
+       --, bgColor = "#1c2224"
+       --, bgColor = "#3b3b3b"
+       , bgColor = "#3f3f3f"
+       , fgColor = "#477d8f"
+       --, position = Top
+       , position = Static { xpos = 0, ypos = 0, width = 1894, height = 24 }
+       --, alpha = 180
+       --, alpha = 255
+       , alpha = 0
+       , lowerOnStart = True
+       , hideOnStart = False
+       , allDesktops = True
+       , overrideRedirect = False
+       , pickBroadest = False
+       --, persistent = True
+       , iconRoot = "/home/jake/.xmonad/xpm/"  -- default: "."
+       , commands = [ 
+                      -- Time and date
+                      Run Date "\xf133 %d %b %Y (%l:%M %p )" "date" 50
+                      -- Run Volume
+                    , Run Volume "default" "Master" ["-t", "<volume> : <status>" ] 10
+                      -- Wifi
+                    , Run Wireless "wlo1" ["-t", "<quality>" ] 30
+                      -- Run Battery
+                    , Run Battery ["-t", "\xf1e6 <left>% : <acstatus>"] 10
+                      -- Run MPD
+                    --, Run MPD ["-t", "<title>"] 10
+                      -- Runs custom script to check for pacman updates.
+                    , Run Com "pacupdate"[] "" 9000
+                      -- Runs a standard shell command 'uname -r' to get kernel version
+                    --, Run Com "uname" ["-r"] ""  36000
+                      -- Prints out the left side items such as workspaces, layout, etc.
+                    , Run UnsafeStdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+--, template = " <action='arcolinux-logout'><icon=xmonad_xpm_haskell_20.xpm/></action> <fc=#477d8f>  |  </fc> %UnsafeStdinReader% }{ <fc=#477d8f><action='st'> %uname%</action></fc><fc=#477d8f> |  </fc><fc=#a8a7a6><action='pamac-manager'> %pacupdate% </action></fc><fc=#477d8f>|  </fc><fc=#a8a7a6>%cpu% </fc><fc=#477d8f> |  </fc><fc=#a8a7a6>%memory% </fc><fc=#477d8f> |  </fc><fc=#a8a7a6>%disku% </fc><fc=#477d8f> |  </fc><fc=#a8a7a6>%battery% </fc><fc=#477d8f> |  </fc><fc=#a8a7a6><action='nm-connection-editor'> %wlo1wi%</action></fc><fc=#477d8f>  |  </fc><fc=#a8a7a6><action='pavucontrol'> %default:Master%</action></fc><fc=#477d8f> |  </fc><fc=#a8a7a6>%date%</fc> | <action='bgd'>  </action> "}
+--, template = " <fc=#3b3b3b>[ </fc> <action='arcolinux-logout'><icon=xmonad_xpm_haskell_20.xpm/></action> <fc=#3b3b3b> ]    [ </fc> <fc=#a8a7a6>%UnsafeStdinReader%</fc><fc=#3b3b3b> ]</fc>  }{ <fc=#3b3b3b>[ </fc>  <fc=#a8a7a6><action='pamac-manager'> %pacupdate% </action></fc><fc=#3b3b3b> ]    [  </fc><fc=#a8a7a6>%battery% </fc><fc=#3b3b3b>  ]    [  </fc><fc=#a8a7a6><action='nm-connection-editor'> %wlo1wi%</action></fc><fc=#3b3b3b>  ]    [  </fc><fc=#a8a7a6><action='pavucontrol'> %default:Master%</action></fc> <fc=#3b3b3b> ]    [   </fc><fc=#a8a7a6>%date%</fc><fc=#3b3b3b>  ]    [  </fc><fc=#cc241d><action='bgd'>  </action></fc> <fc=#3b3b3b> ]</fc>  " }
+, template = " <fc=#477d8f> </fc> <action='arcolinux-logout'><icon=xmonad_xpm_haskell_20.xpm/></action> <fc=#477d8f>      </fc> <fc=#a8a7a6>%UnsafeStdinReader%</fc>   }{ <fc=#477d8f> </fc>  <fc=#a8a7a6><action='pamac-manager'> %pacupdate% </action></fc><fc=#477d8f>       </fc><fc=#a8a7a6>%battery% </fc><fc=#477d8f>        </fc><fc=#a8a7a6><action='nm-connection-editor'> %wlo1wi%</action></fc><fc=#477d8f>        </fc><fc=#a8a7a6><action='pavucontrol'> %default:Master%</action></fc> <fc=#477d8f>        </fc><fc=#a8a7a6>%date%</fc><fc=#477d8f>        </fc><fc=#cc241d><action='bgd'>  </action></fc> <fc=#477d8f> </fc>  " }
