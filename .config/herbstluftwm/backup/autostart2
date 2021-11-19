@@ -40,6 +40,7 @@ hc keybind $Mod-Control-r reload
 hc keybind $Mod-Shift-q close
 hc keybind $Mod-Shift-Return spawn "${TERMINAL:-alacritty}" # use your $TERMINAL with xterm as fallback
 hc keybind $Mod-Control-c spawn $HOME/scripts/herbstchanger
+hc keybind $Mod-Control-t spawn $HOME/scripts/changer
 
 # multimedia #
 #------------#

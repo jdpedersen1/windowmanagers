@@ -21,7 +21,7 @@ hc emit_hook reload
 picom --experimental-backend &
 lxsession &
 #nitrogen --random --set-scaled &
-xwallpaper --zoom ~/Pictures/wallpaper/jl.png
+xwallpaper --zoom ~/Pictures/wallpaper/brand_wallpapers/jl.png
 #conky -c /home/jake/.config/conky/herbs.conkyrc &
 
 # REMOVE ALL EXISTING KEYBINDINGS #
@@ -40,7 +40,8 @@ hc keybind $Mod-Control-r reload
 hc keybind $Mod-Shift-q close
 hc keybind $Mod-Shift-Return spawn "${TERMINAL:-alacritty}" # use your $TERMINAL with xterm as fallback
 hc keybind $Mod-Control-c spawn $HOME/scripts/herbstchanger
- 
+hc keybind $Mod-Control-t spawn $HOME/scripts/changer 
+
 # multimedia #
 #------------#
 hc keybind XF86MonBrightnessUp spawn lux -a 10%
@@ -60,7 +61,7 @@ hc keybind $Mod-Control-t spawn alacritty -e "$HOME/scripts/changer"
 
 # run launchers #
 #---------------#
-hc keybind $Mod-Shift-d spawn dmenu_run -p Execute: -fn Roboto -c -g 1 -l 10 -nb '#222222' -sb '#000000' -sf '#6f7a76' -nf '#076678'
+hc keybind $Mod-Shift-d spawn dmenu_run -p Execute: -fn Roboto -c -g 2 -l 10 -nb '#222222' -sb '#000000' -sf '#6f7a76' -nf '#076678'
 hc keybind $Mod-Shift-r spawn rofi -show drun
 hc keybind $Mod-Control-e spawn rofi -show emoji
 hc keybind $Mod-Shift-e spawn ~/.config/.dmenu/edit_configs.sh
@@ -93,6 +94,8 @@ hc keybind $Mod-Shift-Right shift right
 #------------------#
 hc keybind $Mod-u       split   bottom  0.6
 hc keybind $Mod-o       split   right   0.6
+
+hc keybind $Mod-Return       spawn scratchpad
 
 # let the current frame explode into subframes #
 #----------------------------------------------#
@@ -167,12 +170,12 @@ hc set frame_bg_transparent 1
 hc set frame_transparent_width 0
 hc set frame_gap 0
 
-hc attr theme.active.color '#9fbc00'
-hc attr theme.normal.color '#454545'
+hc attr theme.normal.color '#5f87af'
+hc attr theme.active.color '#afffd7'
 hc attr theme.urgent.color orange
 hc attr theme.inner_width 1
 hc attr theme.inner_color black
-hc attr theme.border_width 0
+hc attr theme.border_width 4
 hc attr theme.floating.border_width 0
 hc attr theme.floating.outer_width 1
 hc attr theme.floating.outer_color black
@@ -180,7 +183,7 @@ hc attr theme.active.inner_color '#3E4A00'
 hc attr theme.active.outer_color '#3E4A00'
 hc attr theme.background_color '#141414'
 
-hc set window_gap 10
+hc set window_gap 20
 hc set frame_padding 0
 hc set smart_window_surroundings off
 hc set smart_frame_surroundings off
@@ -214,4 +217,4 @@ for monitor in $(hc list_monitors | cut -d: -f1) ; do
     # start it on each monitor
     "$panel" "$monitor" &
 done
-hc split horizontal 0.6; hc remove
+hc split vertical 0.6; hc remove
