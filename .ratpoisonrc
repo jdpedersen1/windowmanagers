@@ -1,4 +1,4 @@
-#                 PROJECT NAME: RatpoisonWM   
+#               PROJECT NAME: RatpoisonWM   
 #                      
 # Config file:        ~/.ratpoisonrc
 # Started On:         Mon  9 Aug 18:52:27 CDT 2021
@@ -13,7 +13,7 @@
 #--------------------------------------------#
 #
 #Wallpaper
-exec xwallpaper --zoom ~/Pictures/wallpaper/j@l.png 
+exec xwallpaper --zoom ~/Pictures/wallpaper/brand_wallpapers/j@l.png 
 # nitrogen --restore
 
 #System
@@ -26,7 +26,7 @@ exec ratpoison -c "banish"
 #exec /usr/share/ratpoison/sloppy
 
 #Bar
-exec "./bar.sh" | dzen2 -fn roboto:style=italic -fg "#076678" 
+exec "./bar.sh" | dzen2 -fn monaco:style=italic -fg "#5f87af" -bg "#131313" 
 #exec echo "jakes" | dzen2 -p
 #exec dzconky
 
@@ -124,7 +124,7 @@ bind C-S exec playerctl stop
 
 bind M-T tmpwm dwm
 bind M-C-r restart
-bind M-C quit
+bind M-C exec arcolinux-logout
 bind M-W select  
 #----------------------------------#
 
@@ -132,7 +132,7 @@ bind M-W select
 
 # RPWS (ratpoison workspaces) #
 #-----------------------------#
-#                             #  
+# --                            #  
 bind 1 exec rpws 1
 bind 2 exec rpws 2
 bind 3 exec rpws 3

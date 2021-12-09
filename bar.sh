@@ -63,7 +63,7 @@ fi
       SLEEP_SEC=2
       #loops forever outputting a line every SLEEP_SEC secs
       while :; do     
-    echo "updates ; $(upgrades)  | kernel ; $(kernel)  | vol ; $(vol)  | Batt ; $(bat)  | wifi ; $(network)  |"
+    echo "|  ^i(/home/jake/.xmonad/xpm/xmonad_xpm_pac_20.xpm) = $(upgrades)  | kernel = $(kernel)  | vol = $(vol)  | Batt = $(bat)  | wifi = $(network)  |"
 		sleep $SLEEP_SEC
     done
 	
