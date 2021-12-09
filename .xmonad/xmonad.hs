@@ -127,7 +127,7 @@ myStartupHook = do
        -- spawnOnce "nitrogen --random --set-scaled &" 
 
         --System--
-          spawnOnce "conky"
+        --spawnOnce "conky"
           spawnOnce "picom --experimental-backend &"
           spawnOnce "xfce4-power-manager &"
        -- spawnOnce "lxsession &"
@@ -201,14 +201,14 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                            t = 0.53 -h
                            l = 1.0 -w
 
-        spawnKeys  = myTerminal ++ " -T hotkeys.sh -e hotkeys.sh"
+        spawnKeys  = myTerminal ++ " -T hotkeys.sh --hold -e hotkeys.sh"
         findKeys   = title =? "hotkeys.sh"
         manageKeys = customFloating $ W.RationalRect l t w h
                        where
-                           h = 0.5
-                           w = 1.0
-                           t = 0.53 -h
-                           l = 1.0 -w
+                           h = 0.9
+                           w = 0.6
+                           t = 0.95 -h
+                           l = 0.8 -w
 
 
 ------------------------------------------------------------------------
@@ -671,7 +671,7 @@ main = do
                         , ppVisible = xmobarColor "#3b3b3b" ""                -- Visible but not current workspace
                         , ppHidden = xmobarColor "#b8b8b8" "" . wrap "*" ""   -- Hidden workspaces in xmobar
                         , ppHiddenNoWindows = xmobarColor "#3b3b3b" ""        -- Hidden workspaces (no windows)
-                        , ppTitle = xmobarColor "#3b3b3b" "" . shorten 60     -- Title of active window in xmobar
+                        , ppTitle = xmobarColor "#875f87" "" . shorten 60     -- Title of active window in xmobar
                         , ppSep =  "<fc=#477d8f>     </fc>"                     -- Separators in xmobar
                         , ppUrgent = xmobarColor "#A12B2B" "" . wrap "!" "!"  -- Urgent workspace
                         , ppExtras  = [windowCount]                           -- # of windows current workspace
