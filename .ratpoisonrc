@@ -26,7 +26,7 @@ exec ratpoison -c "banish"
 #exec /usr/share/ratpoison/sloppy
 
 #Bar
-exec "./bar.sh" | dzen2 -fn monaco:style=italic -fg "#5f87af" -bg "#131313" 
+exec "./bar.sh" | dzen2 -ta r -fn monaco:style=italic -fg "#5f87af" -bg "#131313" 
 #exec echo "jakes" | dzen2 -p
 #exec dzconky
 
