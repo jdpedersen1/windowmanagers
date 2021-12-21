@@ -36,7 +36,7 @@ exec "./bar.sh" | dzen2 -ta r -fn monaco:style=italic -fg "#5f87af" -bg "#131313
 #
 #Dialog box
 rudeness 13
-warp off
+warp on
 set winname title
 set wingravity center
 set transgravity center
